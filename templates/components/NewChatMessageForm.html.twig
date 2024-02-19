@@ -1,0 +1,22 @@
+<div {{ attributes }}>
+    {{ form_start(form, {
+        attr: {
+            'data-action': 'live#action',
+            'data-action-name': 'prevent|save'
+        }
+    }) }}
+    <div class="row">
+        <div class="col-auto">
+            {{ form_label(form.message) }}
+        </div>
+        <div class="col">
+            {{ form_widget(form.message) }}
+            {{ form_help(form.message) }}
+            {{ form_errors(form.message) }}
+        </div>
+        <div class="col-auto">
+            <button>Save</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>

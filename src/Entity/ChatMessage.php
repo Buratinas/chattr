@@ -17,7 +17,7 @@ class ChatMessage
     #[ORM\Column(type: 'uuid', unique: true)]
     public Uuid $id;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     public \DateTimeImmutable $sentAt;
 
     #[ORM\Column(type: Types::STRING)]

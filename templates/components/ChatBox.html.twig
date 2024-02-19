@@ -1,0 +1,10 @@
+<div {{ attributes.defaults(stimulus_controller('chat', { url:  mercure('https://chattr.briqsafe.dev/chat/general') })) }}>
+    <div class="message-container">
+        {% for message in this.messages %}
+            <twig:ChatMessage message="{{ message }}"></twig:ChatMessage>
+        {% endfor %}
+    </div>
+    <div class="message-form">
+        <twig:NewChatMessageForm />
+    </div>
+</div>
