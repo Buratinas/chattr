@@ -1,4 +1,10 @@
+
 <blockquote data-message-id="{{ this.message.id }}">
-    <p>{{ this.message.message }}</p>
-    <footer>{{ this.message.sentAt|format_datetime }}</footer>
+    <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td style="text-align: left; width: 50%;">{{ this.message.message }}</td>
+            <td style="text-align: center; width: 25%;">{{ this.message.author.username|default('No author') }}</td>
+            <td style="text-align: right; width: 25%;">{{ this.message.sentAt|format_datetime }}</td>
+        </tr>
+    </table>
 </blockquote>

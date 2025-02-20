@@ -1,9 +1,20 @@
-<div {{ attributes.defaults(stimulus_controller('chat', { url:  mercure('https://chattr.briqsafe.dev/chat/general') })) }}>
-    <div class="message-container">
+<div {{ attributes.defaults(stimulus_controller('chat', { url: mercure('https://chattr.briqsafe.dev/chat/general') })) }}>
+    <table style="width: 100%; border-collapse: collapse;">
+        <!-- Table Headers -->
+        <thead>
+        <tr>
+            <th style="text-align: left; width: 50%;">Message</th>
+            <th style="text-align: center; width: 25%;">Author</th>
+            <th style="text-align: right; width: 25%;">Date</th>
+        </tr>
+        </thead>
+        <tbody class="message-container">
         {% for message in this.messages %}
             <twig:ChatMessage message="{{ message }}"></twig:ChatMessage>
         {% endfor %}
-    </div>
+        </tbody>
+    </table>
+
     <div class="message-form">
         <twig:NewChatMessageForm />
     </div>
