@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ChatChannel;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,6 +15,11 @@ class ChatChannelRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ChatChannel::class);
+    }
+
+    public function userChannels(User $user): \Generator
+    {
+        yield from $this->findBy(['owner' => $user]);
     }
 
     //    /**

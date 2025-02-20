@@ -24,6 +24,7 @@ class ChannelController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $channel->setOwner($this->getUser());
             $entityManager->persist($channel);
             $entityManager->flush();
 
