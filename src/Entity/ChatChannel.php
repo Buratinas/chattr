@@ -36,7 +36,7 @@ class ChatChannel
     #[ORM\OneToMany(targetEntity: ChatMessage::class, mappedBy: 'channel')]
     private Collection $chatMessages;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'messages')]
     private ?User $owner = null;
 
     public function __construct()
