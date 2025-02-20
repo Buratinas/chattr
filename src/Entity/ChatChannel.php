@@ -36,6 +36,9 @@ class ChatChannel
     #[ORM\OneToMany(targetEntity: ChatMessage::class, mappedBy: 'channel')]
     private Collection $chatMessages;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?User $owner = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -124,6 +127,18 @@ class ChatChannel
                 $chatMessage->setChannel(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
 
         return $this;
     }

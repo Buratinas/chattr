@@ -4,8 +4,8 @@
     <div class="channel-selector">
         <label for="channel">Select Channel:</label>
         <select id="channel" data-action="change->chat#changeChannel">
-            {% for channel in this.channels %}
-                <option value="{{ channel.id }}" {% if channel.id == this.selectedChannel %}selected{% endif %}>
+            {% for channel in this.userChannels(this.user) %}
+                <option value="{{ channel.id }}">
                     {{ channel.name }}
                 </option>
             {% endfor %}
