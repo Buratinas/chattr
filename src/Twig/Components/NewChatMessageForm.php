@@ -25,7 +25,9 @@ class NewChatMessageForm extends AbstractController
 
     protected function instantiateForm(): FormInterface
     {
-        return $this->createForm(NewChatMessageFormType::class, $this->initialFormData);
+        return $this->createForm(NewChatMessageFormType::class, $this->initialFormData, [
+            'user' => $this->getUser(),
+        ]);
     }
 
     #[LiveAction]
@@ -33,7 +35,10 @@ class NewChatMessageForm extends AbstractController
     {
         $this->submitForm();
 
+        /** @var \App\Entity\ChatMessage $message */
         $message = $this->getForm()->getdata();
+        $user = $this->getUser();
+        $message->setAuthor($user);
         $entityManager->persist($message);
         $entityManager->flush();
 
