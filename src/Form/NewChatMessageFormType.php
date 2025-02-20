@@ -27,7 +27,8 @@ class NewChatMessageFormType extends AbstractType
                         'rows' => 3,
                     ]
                 ]
-            );
+            )
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -35,11 +36,6 @@ class NewChatMessageFormType extends AbstractType
         $resolver
             ->setDefaults([
                 'data_class' => ChatMessage::class,
-                'empty_data' => function(FormInterface $form) {
-                    return new ChatMessage(
-                        $form->get('message')->getData()
-                    );
-                }
             ]);
     }
 }

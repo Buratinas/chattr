@@ -23,10 +23,9 @@ class ChatMessage
     #[ORM\Column(type: Types::STRING)]
     public string $message;
 
-    public function __construct(string $message)
+    public function __construct()
     {
         $this->id = Uuid::v7();
-        $this->message = $message;
         $this->sentAt = CarbonImmutable::now();
     }
 }
