@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Form;
 
 use App\Entity\ChatMessage;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -18,6 +20,8 @@ class NewChatMessageFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $user = $options['user'];
+
         $builder
             ->add(
                 'message',
@@ -28,6 +32,10 @@ class NewChatMessageFormType extends AbstractType
                     ]
                 ]
             )
+            ->add('author', HiddenType::class, [
+                // Only use this if you really need the ID in the form.
+                'data' => null,
+            ])
         ;
     }
 
@@ -36,6 +44,9 @@ class NewChatMessageFormType extends AbstractType
         $resolver
             ->setDefaults([
                 'data_class' => ChatMessage::class,
+                'user' => null,
             ]);
+
+        $resolver->setAllowedTypes('user', ['null', User::class]);
     }
 }
