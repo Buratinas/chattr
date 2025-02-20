@@ -22,6 +22,15 @@ readonly class ChatMessageRepository
         return $this->repository()->findAll();
     }
 
+    public function allChannels(): array
+    {
+        return $this->repository()->createQueryBuilder('c')
+            ->select('c.channel')
+            ->distinct()
+            ->getQuery()
+            ->getResult();
+    }
+
     /**
      * @return EntityRepository<ChatMessage>
      */

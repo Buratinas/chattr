@@ -1,11 +1,25 @@
 <div {{ attributes.defaults(stimulus_controller('chat', { url: mercure('https://chattr.briqsafe.dev/chat/general') })) }}>
-    <table style="width: 100%; border-collapse: collapse;">
-        <!-- Table Headers -->
+
+    <!-- Channel Selector -->
+    <div class="channel-selector">
+        <label for="channel">Select Channel:</label>
+        <select id="channel" data-action="change->chat#changeChannel">
+            {% for channel in this.channels %}
+                <option value="{{ channel.id }}" {% if channel.id == this.selectedChannel %}selected{% endif %}>
+                    {{ channel.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Messages Table -->
+    <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
         <thead>
         <tr>
-            <th style="text-align: left; width: 50%;">Message</th>
-            <th style="text-align: center; width: 25%;">Author</th>
-            <th style="text-align: right; width: 25%;">Date</th>
+            <th style="text-align: left; width: 40%;">Message</th>
+            <th style="text-align: center; width: 20%;">Author</th>
+            <th style="text-align: center; width: 20%;">Channel</th>
+            <th style="text-align: right; width: 20%;">Date</th>
         </tr>
         </thead>
         <tbody class="message-container">
