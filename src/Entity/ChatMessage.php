@@ -26,6 +26,9 @@ class ChatMessage
     #[ORM\ManyToOne(inversedBy: 'messages')]
     private ?User $author = null;
 
+    #[ORM\ManyToOne(inversedBy: 'chatMessages')]
+    private ?ChatChannel $channel = null;
+
     public function __construct()
     {
         $this->id = Uuid::v7();
@@ -40,6 +43,18 @@ class ChatMessage
     public function setAuthor(?User $author): static
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getChannel(): ?ChatChannel
+    {
+        return $this->channel;
+    }
+
+    public function setChannel(?ChatChannel $channel): static
+    {
+        $this->channel = $channel;
 
         return $this;
     }

@@ -30,9 +30,16 @@ class ChatChannel
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'channels')]
     private Collection $users;
 
+    /**
+     * @var Collection<int, ChatMessage>
+     */
+    #[ORM\OneToMany(targetEntity: ChatMessage::class, mappedBy: 'channel')]
+    private Collection $chatMessages;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->chatMessages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -86,6 +93,36 @@ class ChatChannel
     {
         if ($this->users->removeElement($user)) {
             $user->removeChannel($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ChatMessage>
+     */
+    public function getChatMessages(): Collection
+    {
+        return $this->chatMessages;
+    }
+
+    public function addChatMessage(ChatMessage $chatMessage): static
+    {
+        if (!$this->chatMessages->contains($chatMessage)) {
+            $this->chatMessages->add($chatMessage);
+            $chatMessage->setChannel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChatMessage(ChatMessage $chatMessage): static
+    {
+        if ($this->chatMessages->removeElement($chatMessage)) {
+            // set the owning side to null (unless already changed)
+            if ($chatMessage->getChannel() === $this) {
+                $chatMessage->setChannel(null);
+            }
         }
 
         return $this;
