@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
+use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
@@ -23,10 +24,14 @@ class NewChatMessageForm extends AbstractController
 
     public ?ChatMessageEntity $initialFormData = null;
 
+    #[LiveProp(writable: true)]
+    public ?int $selectedChannel = null;
+
     protected function instantiateForm(): FormInterface
     {
         return $this->createForm(NewChatMessageFormType::class, $this->initialFormData, [
             'user' => $this->getUser(),
+            'selectedChannel' => $this->selectedChannel, // Pass selected channel ID
         ]);
     }
 
@@ -39,6 +44,14 @@ class NewChatMessageForm extends AbstractController
         $message = $this->getForm()->getdata();
         $user = $this->getUser();
         $message->setAuthor($user);
+        // Load the channel entity from the ID
+        if ($this->selectedChannel) {
+            $channel = $entityManager->getRepository(\App\Entity\ChatChannel::class)->find($this->selectedChannel);
+            if ($channel) {
+                $message->setChannel($channel);
+            }
+        }
+
         $entityManager->persist($message);
         $entityManager->flush();
 

@@ -1,0 +1,16 @@
+<div data-controller="chat-channel">
+    <!-- Channel Selector -->
+    <div class="channel-selector">
+        <label for="channel">Select Channel:</label>
+        <select id="channel" data-action="change->chat-channel#changeChannel">
+            {% for channel in this.userChannels(this.user) %}
+                <option value="{{ channel.id }}" {% if channel.id == selectedChannel %}selected{% endif %}>
+                    {{ channel.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <!-- Create Channel Button -->
+        <a href="/channel" class="btn btn-primary">Create Channel</a>
+    </div>
+</div>

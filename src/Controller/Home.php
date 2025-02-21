@@ -13,6 +13,13 @@ class Home extends AbstractController
 {
     public function __invoke(): Response
     {
-        return $this->render('home.html.twig');
+        $user = $this->getUser();
+
+        if ($user === null) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        // picking default channel
+        return $this->render('home.html.twig', ['selectedChannel' => 1]);
     }
 }

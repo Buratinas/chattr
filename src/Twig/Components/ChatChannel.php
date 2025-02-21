@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent()]
-class ChatBox
+class ChatChannel
 {
     public function __construct(
         private readonly ChatMessageRepository $chatMessageRepository,
@@ -45,10 +45,10 @@ class ChatBox
         yield from $this->chatChannelRepository->userChannels($user);
     }
 
-//    public function selectedChannel(): ChatChannelEntity
-//    {
-//        return $this->chatChannelRepository->findOneBy(['id' => 1]);
-//    }
+    public function selectedChannel(): ChatChannelEntity
+    {
+        return $this->chatChannelRepository->findOneBy(['id' => 1]);
+    }
 
     public function user(): UserInterface
     {

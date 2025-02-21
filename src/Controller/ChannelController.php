@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ChatChannel;
+use App\Enum\ChannelVisibility;
 use App\Form\ChannelFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,5 +36,45 @@ class ChannelController extends AbstractController
             'channels' => $channels,
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/channel/{id}', name: 'app_add_channel')]
+    public function channelSelected(ChatChannel $channel, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if (
+            !$channel->getUsers()->contains($this->getUser()) &&
+            $channel->getOwner() !== $this->getUser() &&
+            $channel->getVisibility() !== ChannelVisibility::PUBLIC
+        ) {
+            throw $this->createAccessDeniedException();
+        }
+
+        return $this->render('home.html.twig', ['selectedChannel' => $channel->getId()]);
+//
+//
+//
+//        $user = $this->getUser();
+//
+//        $message = new ChatMessage();
+//        $form = $this->createForm(NewChatMessageFormType::class, $message, [
+//            'user' => $user,
+//            'selectedChannel' => $channel->getId(), // Pass selected channel
+//        ]);
+//
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $message->setAuthor($user);
+//            $message->setChannel($channel); // Assign selected channel
+//            $entityManager->persist($message);
+//            $entityManager->flush();
+//
+//            return $this->redirectToRoute('app_channel', ['id' => $channel->getId()]);
+//        }
+//
+//        return $this->render('home.html.twig', [
+//            'form' => $form->createView(),
+//            'selectedChannel' => $channel->getId(),
+//        ]);
     }
 }

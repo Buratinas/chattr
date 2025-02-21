@@ -20,8 +20,6 @@ class NewChatMessageFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $user = $options['user'];
-
         $builder
             ->add(
                 'message',
@@ -36,6 +34,10 @@ class NewChatMessageFormType extends AbstractType
                 // Only use this if you really need the ID in the form.
                 'data' => null,
             ])
+            ->add('channel', HiddenType::class, [
+                'data' => $options['selectedChannel'] ?? 1,
+                'mapped' => false,
+            ]);
         ;
     }
 
@@ -45,8 +47,10 @@ class NewChatMessageFormType extends AbstractType
             ->setDefaults([
                 'data_class' => ChatMessage::class,
                 'user' => null,
+                'selectedChannel' => null,
             ]);
 
         $resolver->setAllowedTypes('user', ['null', User::class]);
+        $resolver->setAllowedTypes('selectedChannel', ['null', 'int']);
     }
 }
