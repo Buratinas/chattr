@@ -13,6 +13,9 @@
             {{ form_widget(form.message) }}
             {{ form_help(form.message) }}
             {{ form_errors(form.message) }}
+
+            <!-- Hidden field for channel -->
+            {{ form_widget(form.channel) }}
         </div>
         <div class="col-auto">
             <button>Save</button>

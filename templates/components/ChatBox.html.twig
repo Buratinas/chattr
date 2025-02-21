@@ -1,16 +1,29 @@
 <div {{ attributes.defaults(stimulus_controller('chat', { url: mercure('https://chattr.briqsafe.dev/chat/general') })) }}>
-
     <!-- Channel Selector -->
-    <div class="channel-selector">
-        <label for="channel">Select Channel:</label>
-        <select id="channel" data-action="change->chat#changeChannel">
-            {% for channel in this.userChannels(this.user) %}
-                <option value="{{ channel.id }}">
-                    {{ channel.name }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
+{#    <div class="channel-selector">#}
+{#        <label for="channel">Select Channel:</label>#}
+{#        <select id="channel" data-action="change->chat#changeChannel">#}
+{#            {% for channel in this.userChannels(this.user) %}#}
+{#                <option value="{{ channel.id }}" {% if channel.id == this.selectedChannel %}selected{% endif %}>#}
+{#                    {{ channel.name }}#}
+{#                </option>#}
+{#            {% endfor %}#}
+{#        </select>#}
+{#    </div>#}
+
+    <!-- Display Selected Channel -->
+{#    <h2 id="selected-channel-name">#}
+{#        {% for channel in this.userChannels(this.user) %}#}
+{#            <option value="{{ channel.id }}">#}
+{#                {{ channel.name }}#}
+{#            </option>#}
+{#        {% endfor %}#}
+{#        {% for channel in this.userChannels(this.user) %}#}
+{#            {% if channel.id == this.selectedChannel %}#}
+{#                Currently in: {{ channel.name }}#}
+{#            {% endif %}#}
+{#        {% endfor %}#}
+{#    </h2>#}
 
     <!-- Messages Table -->
     <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
@@ -24,12 +37,16 @@
         </thead>
         <tbody class="message-container">
         {% for message in this.messages %}
-            <twig:ChatMessage message="{{ message }}"></twig:ChatMessage>
+            {%  if message.channel != null and message.channel.id == selectedChannel  %}
+                <twig:ChatMessage message="{{ message }}"></twig:ChatMessage>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>
 
+    <!-- Message Form with Selected Channel -->
     <div class="message-form">
-        <twig:NewChatMessageForm />
+        <twig:NewChatMessageForm selectedChannel="{{ selectedChannel }}" />
     </div>
+
 </div>

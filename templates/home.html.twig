@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <twig:ChatBox class="chat-box"/>
+    <twig:ChatChannel class="chat-channel" selectedChannel="{{ selectedChannel }}"/>
+    <twig:ChatBox class="chat-box" selectedChannel="{{ selectedChannel }}"/>
 {% endblock %}
