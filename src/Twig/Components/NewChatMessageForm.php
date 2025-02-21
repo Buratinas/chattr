@@ -31,7 +31,7 @@ class NewChatMessageForm extends AbstractController
     {
         return $this->createForm(NewChatMessageFormType::class, $this->initialFormData, [
             'user' => $this->getUser(),
-            'selectedChannel' => $this->selectedChannel, // Pass selected channel ID
+            'selectedChannel' => $this->selectedChannel,
         ]);
     }
 
@@ -44,7 +44,7 @@ class NewChatMessageForm extends AbstractController
         $message = $this->getForm()->getdata();
         $user = $this->getUser();
         $message->setAuthor($user);
-        // Load the channel entity from the ID
+
         if ($this->selectedChannel) {
             $channel = $entityManager->getRepository(\App\Entity\ChatChannel::class)->find($this->selectedChannel);
             if ($channel) {

@@ -50,31 +50,5 @@ class ChannelController extends AbstractController
         }
 
         return $this->render('home.html.twig', ['selectedChannel' => $channel->getId()]);
-//
-//
-//
-//        $user = $this->getUser();
-//
-//        $message = new ChatMessage();
-//        $form = $this->createForm(NewChatMessageFormType::class, $message, [
-//            'user' => $user,
-//            'selectedChannel' => $channel->getId(), // Pass selected channel
-//        ]);
-//
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $message->setAuthor($user);
-//            $message->setChannel($channel); // Assign selected channel
-//            $entityManager->persist($message);
-//            $entityManager->flush();
-//
-//            return $this->redirectToRoute('app_channel', ['id' => $channel->getId()]);
-//        }
-//
-//        return $this->render('home.html.twig', [
-//            'form' => $form->createView(),
-//            'selectedChannel' => $channel->getId(),
-//        ]);
     }
 }

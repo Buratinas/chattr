@@ -45,11 +45,6 @@ class ChatBox
         yield from $this->chatChannelRepository->userChannels($user);
     }
 
-//    public function selectedChannel(): ChatChannelEntity
-//    {
-//        return $this->chatChannelRepository->findOneBy(['id' => 1]);
-//    }
-
     public function user(): UserInterface
     {
         return $this->security->getUser();
