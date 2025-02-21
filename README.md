@@ -39,6 +39,9 @@ Things added for the solution:
 
 Things to be added:
 - Attachments can be added to messages. This can be done by adding using Symfony example https://symfony.com/doc/current/the-fast-track/en/14-form.html#uploading-files
+  - The attachment can be stored in the database by adding a new entity that stores the attachment and the message it is attached to.
+  - The file storage location for the deployed application would be a mounted share in the server/cloud. This allows for easy access to the files and for backups.
+  - Uploads are generally handled by pods that can write to the mounted share. This allows for the application to be stateless and for the files to be stored in a persistent location.
 - Sending direct messages requires a small change to either create a private channel between them or to send a message directly,
   but that requires and update to the message entity to also include recipient.
 - Joining a channel can be done by adding a button next to channel list that allows user to join a channel. Clicking the button would add him to the users of the channel.
