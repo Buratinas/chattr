@@ -12,6 +12,13 @@ Quick setup (implied):
 
 Open localhost:8000 to see the application.
 
+The endpoints that are available in the application are:
+- `/register` - Register a new user.
+- `/login` - Login a user.
+- `/channel` - List all channels.
+- `/channel/{id}` - Show messages in a channel.
+- `/` - Home page, currently shows general channel messages.
+
 
 ## Challenge
 
