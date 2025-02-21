@@ -23,29 +23,4 @@ class ChatChannelRepository extends ServiceEntityRepository
         yield from $this->findBy(['owner' => $user, 'visibility' => ChannelVisibility::PRIVATE]);
         yield from $this->findBy(['visibility' => ChannelVisibility::PUBLIC]);
     }
-
-    //    /**
-    //     * @return ChatChannel[] Returns an array of ChatChannel objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?ChatChannel
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }
